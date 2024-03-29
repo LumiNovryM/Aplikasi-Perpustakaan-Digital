@@ -10,12 +10,15 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body>
+<body class="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
 
     {{-- Navbar --}}
     @include('components.header')
 
     @yield('content')
+
+    {{-- Footer --}}
+    @include('components.footer')
 
 </body>
 
