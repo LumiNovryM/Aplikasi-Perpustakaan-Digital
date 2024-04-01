@@ -1,20 +1,42 @@
-<footer
-    class="fixed bottom-0 left-0 z-20 w-full p-4 bg-white border-t border-gray-200 shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800 dark:border-gray-600">
-    <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <a href="{{ route('home') }}"
-            class="hover:underline">Pustaka Plus™</a>. All Rights Reserved.
-    </span>
-    <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
-        <li>
-            <a href="#" class="hover:underline me-4 md:me-6">About</a>
-        </li>
-        <li>
-            <a href="#" class="hover:underline me-4 md:me-6">Privacy Policy</a>
-        </li>
-        <li>
-            <a href="#" class="hover:underline me-4 md:me-6">Licensing</a>
-        </li>
-        <li>
-            <a href="#" class="hover:underline">Contact</a>
-        </li>
-    </ul>
+<footer class="pt-4">
+    <div class="w-full px-6 mx-auto">
+        <div class="flex flex-wrap items-center -mx-3 lg:justify-between">
+            <div class="w-full max-w-full px-3 mt-0 mb-6 shrink-0 lg:mb-0 lg:w-1/2 lg:flex-none">
+                <div class="text-sm leading-normal text-center text-slate-500 lg:text-left">
+                    ©
+                    <script>
+                        document.write(new Date().getFullYear() + ",");
+                    </script>
+                    made with <i class="fa fa-heart"></i> by
+                    <a href="https://www.creative-tim.com"
+                        class="font-semibold text-slate-700 dark:text-white" target="_blank">Lumi Novry M</a>
+                    for a better web.
+                </div>
+            </div>
+            <div class="w-full max-w-full px-3 mt-0 shrink-0 lg:w-1/2 lg:flex-none">
+                <ul class="flex flex-wrap justify-center pl-0 mb-0 list-none lg:justify-end">
+                    <li class="nav-item">
+                        <a href="https://www.linkedin.com/in/lumi-novry-m-86a335223/"
+                            class="block px-4 pt-0 pb-1 text-sm font-normal transition-colors ease-in-out text-slate-500"
+                            target="_blank">Lumi Novry M</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://www.linkedin.com/in/lumi-novry-m-86a335223/"
+                            class="block px-4 pt-0 pb-1 text-sm font-normal transition-colors ease-in-out text-slate-500"
+                            target="_blank">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://www.linkedin.com/in/lumi-novry-m-86a335223/"
+                            class="block px-4 pt-0 pb-1 text-sm font-normal transition-colors ease-in-out text-slate-500"
+                            target="_blank">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://www.linkedin.com/in/lumi-novry-m-86a335223/"
+                            class="block px-4 pt-0 pb-1 pr-0 text-sm font-normal transition-colors ease-in-out text-slate-500"
+                            target="_blank">License</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </footer>
