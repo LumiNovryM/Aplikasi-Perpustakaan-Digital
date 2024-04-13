@@ -127,8 +127,8 @@
                                             <select aria-label="Default select example" name="role" class="focus:shadow-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding p-3 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
                                                 <option selected class="text-gray-700">Pilih Role Anda!</option>
                                                 <option value="administrator">Administrator</option>
-                                                <option value="Petugas">Petugas</option>
-                                                <option value="Peminjam">Peminjam</option>
+                                                <option value="petugas">Petugas</option>
+                                                <option value="peminjam">Peminjam</option>
                                               </select>
                                         </div>
                                         <div class="flex items-center pl-12 mb-0.5 text-left min-h-6">

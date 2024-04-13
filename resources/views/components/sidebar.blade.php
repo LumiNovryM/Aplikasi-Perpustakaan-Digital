@@ -101,7 +101,7 @@
             Data Buku</a>
         <!-- pro btn  -->
         <a class="inline-block w-full px-8 py-2 text-xs font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-blue-500 border-0 rounded-lg shadow-md select-none bg-150 bg-x-25 hover:shadow-xs hover:-translate-y-px"
-            href="https://www.creative-tim.com/product/argon-dashboard-pro-tailwind?ref=sidebarfree"
-            target="_blank">Sign Out</a>
+            href="{{ route('logout') }}"
+            >Logout</a>
     </div>
 </aside>

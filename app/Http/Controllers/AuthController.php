@@ -16,7 +16,7 @@ class AuthController extends Controller
     {
         return view('auth.register');
     }
-
+    
     public function authenticate(Request $request)
     {
         $credentials = $request->validate([
@@ -27,16 +27,23 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             if ($request->role === 'administrator') {
-                return redirect()->intended('dashboard_admin');
+                return redirect()->route('dashboard_admin');
             } else if ($request->role === 'petugas') {
-                return redirect()->intended('dashboard_petugas');
+                return redirect()->route('dashboard_petugas');
             } else if ($request->role === 'peminjam') {
-                return redirect()->intended('dashboard_peminjam');
+                return redirect()->route('dashboard_peminjam');
             }
 
-            return redirect()->intended('dashboard');
         }
 
         return redirect('login');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/login');
     }
 }

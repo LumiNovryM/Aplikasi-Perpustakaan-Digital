@@ -13,11 +13,12 @@ Route::get('/', function() {
 });
 
 # Authentication Handler
-Route::get('/login', [AuthController::class, 'login_page'])->middleware('guest')->name('login');
-Route::get('/register', [AuthController::class, 'register_page'])->middleware('guest')->name('register');
+Route::get('/login', [AuthController::class, 'login_page'])->name('login');
+Route::get('/register', [AuthController::class, 'register_page'])->name('register');
 
 Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
 Route::post('/register', [AuthController::class, 'register_action'])->name('register_action');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 # Administrator Handler
 Route::prefix('admin')->middleware('auth')->group(function () {
@@ -26,7 +27,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
 # Petugas Handler
 Route::prefix('petugas')->middleware('auth')->group(function () {
-    Route::get('/dashboard', [PetugasController::class, 'dasboard_petugas'])->name('dashboard_petugas');
+    Route::get('/dashboard', [PetugasController::class, 'dashboard_petugas'])->name('dashboard_petugas');
 });
 
 # Peminjam Handler
