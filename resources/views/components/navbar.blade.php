@@ -27,7 +27,11 @@
                     <a href="../pages/sign-in.html"
                         class="block px-0 py-2 text-sm font-semibold text-white transition-all ease-nav-brand">
                         <i class="fa fa-user sm:mr-1"></i>
-                        <span class="hidden sm:inline">Nama User</span>
+                        @if (Auth::user())
+                            <span class="hidden sm:inline">{{ Auth::user()->name }}</span>
+                        @else
+                            <span class="hidden sm:inline">Pengguna Pustaka Plus</span>
+                        @endif
                     </a>
                 </li>
                 <li class="flex items-center pl-4 xl:hidden">
