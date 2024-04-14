@@ -3485,6 +3485,7 @@
                 }
             ],
             "time": "2024-03-19T11:56:30+00:00"
+
         },
         {
             "name": "symfony/event-dispatcher",
@@ -3879,6 +3880,7 @@
             "homepage": "https://symfony.com",
             "support": {
                 "source": "https://github.com/symfony/http-kernel/tree/v6.4.6"
+
             },
             "funding": [
                 {
@@ -3959,6 +3961,7 @@
             "homepage": "https://symfony.com",
             "support": {
                 "source": "https://github.com/symfony/mailer/tree/v6.4.6"
+
             },
             "funding": [
                 {
@@ -4044,6 +4047,7 @@
             ],
             "support": {
                 "source": "https://github.com/symfony/mime/tree/v6.4.6"
+
             },
             "funding": [
                 {
