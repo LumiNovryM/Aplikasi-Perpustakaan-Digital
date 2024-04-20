@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->insert([
             'username' => 'admin',
-            'password' => Hash::make('12345678'),
+            'password' => Hash::make('Mysql@2023'),
             'email' => 'admin@gmail.com',
             'name_lengkap' => 'Administrator',
             'alamat' => 'Alamat Administrator',
@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
 
         DB::table('users')->insert([
             'username' => 'petugas',
-            'password' => Hash::make('12345678'),
+            'password' => Hash::make('Mysql@2023'),
             'email' => 'petugas@gmail.com',
             'name_lengkap' => 'Petugas',
             'alamat' => 'Alamat Petugas',
@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
 
         DB::table('users')->insert([
             'username' => 'peminjam',
-            'password' => Hash::make('12345678'),
+            'password' => Hash::make('Mysql@2023'),
             'email' => 'peminjam@gmail.com',
             'name_lengkap' => 'Peminjam',
             'alamat' => 'Alamat Peminjam',
