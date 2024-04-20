@@ -46,7 +46,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register')->middleware('guest');
 
-Route::post('/register', [AuthController::class, 'register']);
+Route::post('/register', [AuthController::class, 'register'])->name('register_action');
 
 Route::middleware(['auth', 'UserAccess:admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'showAdminForm'])->name('admin.dashboard');

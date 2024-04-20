@@ -21,6 +21,7 @@ class AuthController extends Controller
     // Sistem Login
     public function login(Request $request)
     {
+        dd($request->all());
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
