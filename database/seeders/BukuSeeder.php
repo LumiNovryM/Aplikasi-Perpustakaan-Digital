@@ -15,10 +15,10 @@ class BukuSeeder extends Seeder
     {
         $data = [
             [
-                'judul' => 'Judul Buku Pertama',
-                'sampul' => 'kuT1mKxky6V71vNy8EcO.jpg',
-                'penulis' => 'Penulis Pertama',
-                'penerbit' => 'Penerbit Pertama',
+                'judul' => 'Mysql Fundamentals',
+                'sampul' => 'mysql.png',
+                'penulis' => 'John Doe',
+                'penerbit' => 'John Doe',
                 'stock' => 5,
                 'tahun_terbit' => 2020,
                 'kategori_id' => 1, // Ganti dengan ID kategori yang sesuai
@@ -26,10 +26,21 @@ class BukuSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'judul' => 'Judul Buku Kedua',
-                'sampul' => 'kuT1mKxky6V71vNy8EcO.jpg',
-                'penulis' => 'Penulis Kedua',
-                'penerbit' => 'Penerbit Kedua',
+                'judul' => 'JavaScript',
+                'sampul' => 'javascript.png',
+                'penulis' => 'Maria Chester',
+                'penerbit' => 'Maria Chester',
+                'stock' => 5,
+                'tahun_terbit' => 2021,
+                'kategori_id' => 2, // Ganti dengan ID kategori yang sesuai
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'judul' => 'Kumpulan Syair',
+                'sampul' => 'syair.png',
+                'penulis' => 'Adam Malik',
+                'penerbit' => 'Adam Malik',
                 'stock' => 5,
                 'tahun_terbit' => 2021,
                 'kategori_id' => 2, // Ganti dengan ID kategori yang sesuai

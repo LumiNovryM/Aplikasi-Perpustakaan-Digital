@@ -30,7 +30,6 @@ use App\Http\Controllers\PetugasPengembalianController;
 |
 */
 
-
 Route::get('/', [DashboardController::class, 'showUserForm'])->name('peminjam.dashboard');
 
 Route::get('/books/{category}', [DashboardController::class, 'showBooksByCategory'])->name('books.by.category');

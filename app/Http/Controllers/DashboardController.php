@@ -17,15 +17,9 @@ class DashboardController extends Controller
 {
     public function showUserForm()
     {
-        $buku = Buku::paginate(12);
-        $kategori = Kategori::all();
-        $ulasan = Ulasan::all();
+        $buku = Buku::paginate(3);
 
-        if ($buku->isEmpty()) {
-            $buku = null;
-        }
-
-        return view('peminjam.dashboard', compact('buku', 'kategori', 'ulasan'));
+        return view('peminjam.dashboard', compact('buku'));
     }
 
     public function showBooksByCategory($category)
