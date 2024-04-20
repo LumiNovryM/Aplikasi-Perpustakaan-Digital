@@ -31,7 +31,8 @@
                         class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Sign in to your account
                     </h1>
-                    <form class="space-y-4 md:space-y-6" action="{{ route('login') }}" method="POST">
+                    <form class="space-y-4 md:space-y-6" action="{{ route('login_action') }}" method="POST">
+                        @csrf
                         <div>
                             <label for="email"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>

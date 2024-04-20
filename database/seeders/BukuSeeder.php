@@ -19,7 +19,7 @@ class BukuSeeder extends Seeder
                 'sampul' => 'mysql.png',
                 'penulis' => 'John Doe',
                 'penerbit' => 'John Doe',
-                'stock' => 5,
+                'stock' => 0,
                 'tahun_terbit' => 2020,
                 'kategori_id' => 1, // Ganti dengan ID kategori yang sesuai
                 'created_at' => now(),

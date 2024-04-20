@@ -40,7 +40,7 @@ Route::get('/show/{id}', [DashboardController::class, 'show'])->name('peminjam.s
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login')->middleware('guest');
 
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login'])->name('login_action');
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
