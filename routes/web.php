@@ -148,6 +148,8 @@ Route::middleware(['auth', 'UserAccess:peminjam'])->group(function () {
     
     Route::get('/detail/{id}', [BukuController::class, 'detail_buku'])->name('detail_buku');
     Route::post('/favorite/{id}', [KoleksiController::class, 'addFavorite'])->name('addFavorite');
+
+    Route::get('/buku-anda', [KoleksiController::class, 'buku_anda'])->name('buku_anda');
 });
 
 Route::middleware(['auth'])->group(function () {

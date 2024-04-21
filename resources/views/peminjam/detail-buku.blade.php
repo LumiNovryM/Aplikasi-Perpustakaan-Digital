@@ -23,7 +23,7 @@
 
 </head>
 
-<body>
+<body class="bg-gray-50">
 
     <div class="fixed top-4 left-4">
         <a href="{{ redirect()->back()->getTargetUrl() }}"
@@ -125,19 +125,29 @@
                                         <form action="{{ route('peminjam.buku', ['id' => $buku->id]) }}" method="POST"
                                             class="d-flex">
                                             @csrf
-                                            <button disabled class="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                                            <button disabled
+                                                class="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                                                 type="submit">
-                                                <i class="bi bi-book-half"></i>
-                                                Menunggu Approval Dari Petugas
+                                                <i class="fa-solid fa-clock"></i>
+                                                &nbsp;
+                                                Menunggu Approval Pinjaman
                                             </button>
                                         </form>
                                     @elseif (isset($status) && $status->status_tunggu === 'idle' && $status->status_peminjaman === 'Dipinjam')
                                         <form action="{{ route('peminjam.buku', ['id' => $buku->id]) }}" method="POST"
                                             class="d-flex">
                                             @csrf
-                                            <button disabled class="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                                            <button disabled
+                                                class="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                                                 type="submit">
-                                                <i class="bi bi-book-half"></i>
+                                                <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400"
+                                                    fill="currentColor" viewBox="0 0 20 20"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                                        clip-rule="evenodd"></path>
+                                                </svg>
+                                                &nbsp;
                                                 Pinjaman Anda Telah Di Approve
                                             </button>
                                         </form>
@@ -145,17 +155,21 @@
                                         <form action="{{ route('peminjam.buku', ['id' => $status->id]) }}" method="POST"
                                             class="d-flex">
                                             @csrf
-                                            <button disabled class="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                                            <button disabled
+                                                class="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                                                 type="submit">
-                                                <i class="bi bi-book-half"></i>
-                                                menunggu approval pengembalian
+                                                <i class="fa-solid fa-clock"></i>
+                                                &nbsp;
+                                                Menunggu Approval Pengembalian Dari Petugas
                                             </button>
                                         </form>
                                     @else
                                         <form action="{{ route('peminjam.buku', ['id' => $buku->id]) }}" method="POST"
                                             class="d-flex">
                                             @csrf
-                                            <button class="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="submit">
+                                            <button
+                                                class="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                                                type="submit">
                                                 <i class="bi bi-book-half"></i>
                                                 Pinjam
                                             </button>
@@ -165,8 +179,9 @@
                                     <form action="{{ route('peminjam.buku', ['id' => $buku->id]) }}" method="POST"
                                         class="d-flex">
                                         @csrf
-                                        <button class="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button"
-                                            disabled>
+                                        <button
+                                            class="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                                            type="button" disabled>
                                             <i class="bi bi-book-half"></i>
                                             Pinjam
                                         </button>
@@ -192,17 +207,7 @@
 
                     <hr class="my-6 md:my-8 border-gray-200 dark:border-gray-800" />
 
-                    <p class="mb-6 text-gray-500 dark:text-gray-400">
-                        Studio quality three mic array for crystal clear calls and voice
-                        recordings. Six-speaker sound system for a remarkably robust and
-                        high-quality audio experience. Up to 256GB of ultrafast SSD storage.
-                    </p>
-
-                    <p class="text-gray-500 dark:text-gray-400">
-                        Two Thunderbolt USB 4 ports and up to two USB 3 ports. Ultrafast
-                        Wi-Fi 6 and Bluetooth 5.0 wireless. Color matched Magic Mouse with
-                        Magic Keyboard or Magic Keyboard with Touch ID.
-                    </p>
+                   
                 </div>
             </div>
         </div>
