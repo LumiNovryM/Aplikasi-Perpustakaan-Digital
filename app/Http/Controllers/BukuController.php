@@ -154,4 +154,10 @@ class BukuController extends Controller
 
         return redirect('/buku')->with('success', 'Buku berhasil dihapus');
     }
+
+    public function detail_buku($id)
+    {
+        $data = Buku::where('id', $id)->get()->first();
+        return view('peminjam.detail-buku', ['data' => $data]);
+    }
 }

@@ -17,8 +17,6 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('buku_id');
             $table->foreign('buku_id')->references('id')->on('buku')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('peminjaman_id');
-            $table->foreign('peminjaman_id')->references('id')->on('peminjaman')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
