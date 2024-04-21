@@ -37,39 +37,59 @@
         <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
             <div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
                 <div class="shrink-0 max-w-md lg:max-w-lg mx-auto">
-                    <img class="w-full dark:hidden" src="{{ asset('storage/buku/' . $data->sampul) }}"
-                        alt="{{ $data->judul }}" />
-                    <img class="w-full hidden dark:block" src="{{ asset('storage/buku/' . $data->sampul) }}"
-                        alt="{{ $data->judul }}" />
+                    <img class="w-full dark:hidden" src="{{ asset('storage/buku/' . $buku->sampul) }}"
+                        alt="{{ $buku->judul }}" />
+                    <img class="w-full hidden dark:block" src="{{ asset('storage/buku/' . $buku->sampul) }}"
+                        alt="{{ $buku->judul }}" />
                 </div>
 
                 <div class="mt-6 sm:mt-8 lg:mt-0">
                     <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
-                        {{ $data->judul }}
+                        {{ $buku->judul }}
                     </h1>
                     <div class="mt-2 sm:items-center sm:gap-4 sm:flex">
                         <p class="font-semibold text-gray-900 sm:text-3xl dark:text-white">
-                            Penulis : {{ $data->penulis }}
+                            Penulis : {{ $buku->penulis }}
                         </p>
                     </div>
                     <div class="mt-2 sm:items-center sm:gap-4 sm:flex">
                         <p class="font-semibold text-gray-900 sm:text-3xl dark:text-white">
-                            Penerbit : {{ $data->penerbit }}
+                            Penerbit : {{ $buku->penerbit }}
                         </p>
                     </div>
                     <div class="mt-2 sm:items-center sm:gap-4 sm:flex">
                         <p class="font-semibold text-gray-900 sm:text-3xl dark:text-white">
-                            Tahun Terbit : {{ $data->tahun_terbit }}
+                            Tahun Terbit : {{ $buku->tahun_terbit }}
                         </p>
                     </div>
                     <div class="mt-2 sm:items-center sm:gap-4 sm:flex">
                         <p class="font-semibold text-gray-900 sm:text-3xl dark:text-white">
-                            Jumlah Stock : {{ $data->stock }}
+                            Jumlah Stock : {{ $buku->stock }}
+                        </p>
+                    </div>
+                    <div class="mt-2 sm:items-center sm:gap-4 sm:flex">
+                        <p class="font-semibold text-gray-900 sm:text-3xl dark:text-white">
+                            @php
+                                $ratingValue = $buku->ulasan->avg('rating'); // Dapatkan nilai rating dari database
+                                $fullStars = (int) $ratingValue;
+                                $halfStar = $ratingValue - $fullStars >= 0.5;
+                                $emptyStars = 5 - $fullStars - ($halfStar ? 1 : 0);
+                            @endphp
+
+                            @for ($i = 1; $i <= 5; $i++)
+                                @if ($i <= $fullStars)
+                                    ⭐️ <!-- Bintang penuh -->
+                                @elseif ($i == $fullStars + 1 && $halfStar)
+                                    🌟 <!-- Bintang setengah -->
+                                @else
+                                    ☆ <!-- Bintang kosong -->
+                                @endif
+                            @endfor
                         </p>
                     </div>
 
                     <div class="mt-6 sm:gap-4 sm:items-center sm:flex sm:mt-8">
-                        <form action="{{ route('addFavorite', $data->id) }}" method="POST">
+                        <form action="{{ route('addFavorite', $buku->id) }}" method="POST">
                             @csrf
                             <button type="submit" title=""
                                 class="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
@@ -85,7 +105,7 @@
                         </form>
 
 
-                        @if ($data->stock == 0)
+                        @if ($buku->stock == 0)
                             <a href="#" title=""
                                 class="justmt-4 sm:mt-0 text-white bg-purple-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 border font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 flex items-center justify-center"
                                 role="button">
@@ -94,13 +114,67 @@
                                 <span<span class="font-semibold">Tidak Tersedia</span></span>
                             </a>
                         @else
-                            <a href="#" title=""
-                                class="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                                role="button">
-                                <i class="fa-solid fa-cart-shopping"></i>
-                                &nbsp;
-                                Pinjam
-                            </a>
+                            {{-- Logika Peminjaman --}}
+                            @auth
+                                @php
+                                    $role = auth()->user()->role;
+                                @endphp
+
+                                @if ($role == 'peminjam')
+                                    @if (isset($status) && $status->status_tunggu === 'tunggu' && $status->status_peminjaman === null)
+                                        <form action="{{ route('peminjam.buku', ['id' => $buku->id]) }}" method="POST"
+                                            class="d-flex">
+                                            @csrf
+                                            <button disabled class="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                                                type="submit">
+                                                <i class="bi bi-book-half"></i>
+                                                Menunggu Approval Dari Petugas
+                                            </button>
+                                        </form>
+                                    @elseif (isset($status) && $status->status_tunggu === 'idle' && $status->status_peminjaman === 'Dipinjam')
+                                        <form action="{{ route('peminjam.buku', ['id' => $buku->id]) }}" method="POST"
+                                            class="d-flex">
+                                            @csrf
+                                            <button disabled class="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                                                type="submit">
+                                                <i class="bi bi-book-half"></i>
+                                                Pinjaman Anda Telah Di Approve
+                                            </button>
+                                        </form>
+                                    @elseif(isset($status) && $status->status_tunggu === 'pengembalian')
+                                        <form action="{{ route('peminjam.buku', ['id' => $status->id]) }}" method="POST"
+                                            class="d-flex">
+                                            @csrf
+                                            <button disabled class="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                                                type="submit">
+                                                <i class="bi bi-book-half"></i>
+                                                menunggu approval pengembalian
+                                            </button>
+                                        </form>
+                                    @else
+                                        <form action="{{ route('peminjam.buku', ['id' => $buku->id]) }}" method="POST"
+                                            class="d-flex">
+                                            @csrf
+                                            <button class="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="submit">
+                                                <i class="bi bi-book-half"></i>
+                                                Pinjam
+                                            </button>
+                                        </form>
+                                    @endif
+                                @elseif($role == 'admin' || $role == 'petugas')
+                                    <form action="{{ route('peminjam.buku', ['id' => $buku->id]) }}" method="POST"
+                                        class="d-flex">
+                                        @csrf
+                                        <button class="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button"
+                                            disabled>
+                                            <i class="bi bi-book-half"></i>
+                                            Pinjam
+                                        </button>
+                                    </form>
+                                @endif
+
+                            @endauth
+                            {{-- Logika Peminjaman --}}
                             <a href="#" title=""
                                 class="mt-4 sm:mt-0 text-white bg-purple-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 border font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 flex items-center justify-center"
                                 role="button">

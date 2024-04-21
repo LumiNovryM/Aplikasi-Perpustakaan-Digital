@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Storage;
 
@@ -158,7 +159,24 @@ class BukuController extends Controller
     public function detail_buku($id)
     {
         $data = Buku::where('id', $id)->get()->first();
-        return view('peminjam.detail-buku', ['data' => $data]);
+        $user = Auth::user();
+        $buku = Buku::findOrFail($id);
+        $kategori = Kategori::all();
+        $userId = Auth::user()->id;
+
+        $status_tunggu = Peminjaman::where('buku_id', $id)
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+
+
+        // Jika $status null, maka set nilai default
+        $status = $status_tunggu ? $status_tunggu : $status_tunggu = $status_tunggu = Peminjaman::where('buku_id', $id)
+            ->orderBy('created_at', 'desc')
+            ->first();;;
+
+        $ulasan = $buku->ulasan;
+        return view('peminjam.detail-buku', compact('buku', 'kategori', 'ulasan', 'status'));
     }
 
     public function list_buku()
