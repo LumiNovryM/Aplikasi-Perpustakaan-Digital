@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sign In</title>
+    <title>Sign Up</title>
 
     {{-- Flowbite CSS --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"
@@ -31,7 +31,7 @@
                         class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Create and account
                     </h1>
-                    <form class="space-y-4 md:space-y-6" action="{{ route('login_action') }}" method="POST">
+                    <form class="space-y-4 md:space-y-6" action="{{ route('register_action') }}" method="POST">
                         @csrf
                         <div>
                             <label for="username"
@@ -53,30 +53,22 @@
                             <label for="fullname"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
                                 fullname</label>
-                            <input type="text" name="fullname" id="fullname"
+                            <input type="text" name="name_lengkap" id="fullname"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="John Doe" required="">
-                        </div> <div>
-                            <label for="username"
+                        </div>
+                        <div>
+                            <label for="address"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
                                 address</label>
-                            <input type="text" name="username" id="username"
+                            <input type="text" name="alamat" id="address"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="name@company.com" required="">
+                                placeholder="Street Pekapuran" required="">
                         </div>
                         <div>
                             <label for="password"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                             <input type="password" name="password" id="password" placeholder="••••••••"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                required="">
-                        </div>
-                        <div>
-                            <label for="confirm-password"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm
-                                password</label>
-                            <input type="confirm-password" checked name="confirm-password" id="confirm-password"
-                                placeholder="••••••••"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 required="">
                         </div>
@@ -97,7 +89,7 @@
                             an account</button>
                         <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                             Already have an account? <a href="{{ route('login') }}"
-                                class="font-medium text-primary-600 hover:underline dark:text-primary-500">Login
+                                class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign In
                                 here</a>
                         </p>
                     </form>

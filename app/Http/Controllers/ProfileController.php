@@ -17,12 +17,9 @@ class ProfileController extends Controller
 {
     public function showProfile()
     {
-        $user = auth()->user();
-        $peminjaman = Peminjaman::where('user_id', $user->id)->get();
-        $totalPeminjaman = $peminjaman->where('status_peminjaman', 'Dipinjam')->count();
-        $totalPengembalian = $peminjaman->where('status_peminjaman', 'Dikembalikan')->count();
-        
-        return view('peminjam.profile.index', compact('user','totalPeminjaman', 'totalPengembalian'));
+        $user = Auth::user();
+        $peminjaman = Peminjaman::where('user_id', $user->id)->with(['buku'])->paginate(3);
+        return view('peminjam.profile.index', ['data' => $peminjaman]);
     }
 
 

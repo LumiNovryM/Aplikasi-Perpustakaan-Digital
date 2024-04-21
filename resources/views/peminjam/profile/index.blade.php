@@ -1,108 +1,77 @@
-@extends('layout.detail')
+@php
+    use Carbon\Carbon;    
+@endphp
 
-@section('content')
+<!DOCTYPE html>
+<html lang="en">
 
-<style>
-    .gradient-custom-2 {
-        /* fallback for old browsers */
-        background: #f8f9fa;
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ Auth::user()->name_lengkap }} | Profile</title>
 
-        /* Chrome 10-25, Safari 5.1-6 */
-        background: #f8f9fa;
+    {{-- Flowbite CSS --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"
+        integrity="sha512-4CrzvWKAMiv1znMPFPA/lqlo9ykTDj9GdHwq3iujHBNSnopB7UpRz45dQ/gGn5ed7DF1NsA8OmUp7YHEV+mFKg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        background: #f8f9fa;
-    }
-</style>
+    {{-- TailwindCSS --}}
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
 
-<section class="h-100 gradient-custom-2">
-    <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col col-lg-9 col-xl-7">
-                <div class="card">
-                    <div class="rounded-top text-white d-flex flex-row" style="background-color: #000; height:200px;">
-                        <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px; height: 300px;">
-                            <div style="width: 150px; height: 155px; overflow: hidden; border: 3px solid #f8f9fa;">
-                                <img src="{{ asset($user->profile_photo ? 'storage/' . $user->profile_photo : 'DetailPeminjaman/assets/default.png') }}"
-                                    alt="Foto Profil" class="img-fluid"
-                                    style="width: 100%; height: 100%; object-fit: cover; z-index: 1; background-color: #f8f9fa;">
-                            </div>
-                            <button type="button" class="btn btn-outline-dark mt-2" data-bs-toggle="modal"
-                                data-bs-target="#editProfileModal" style="z-index: 1;">
-                                Edit profile
-                            </button>
-                        </div>
-                        <div class="ms-3" style="margin-top: 130px;">
-                            <h5>{{ $user->username }}</h5>
-                            <p>{{ $user->role }}</p>
-                        </div>
+<body class="bg-gray-300 antialiased">
+    <div class="container mx-auto mt-[100px]">
+        <div>
+
+            <div class="bg-white relative shadow rounded-lg w-5/6 md:w-5/6  lg:w-4/6 xl:w-3/6 mx-auto">
+                <div class="flex justify-center">
+                    <img src="https://avatars0.githubusercontent.com/u/35900628?v=4" alt=""
+                        class="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-md border-4 border-white transition duration-200 transform hover:scale-110">
+                </div>
+
+                <div class="mt-16">
+                    <h1 class="font-bold text-center text-3xl text-gray-900">{{ Auth::user()->username }}</h1>
+                    <p class="text-center text-sm text-gray-400 font-medium">{{ Auth::user()->name_lengkap }}</p>
+                    <p>
+                        <span>
+
+                        </span>
+                    </p>
+                    <div class="my-5 px-6">
+                        <a href="#" @disabled(true)
+                            class="text-gray-200 block rounded-lg text-center font-medium leading-6 px-6 py-3 bg-gray-900 hover:bg-black hover:text-white">{{ Auth::user()->role == 'peminjam' ? 'Peminjam' : '' }}</a>
                     </div>
-                    <div class="p-4 text-black" style="background-color: #f8f9fa;">
-                        <div class="d-flex justify-content-end text-center py-1">
-                            <div>
-                                <p class="mb-1 h5">{{ $totalPeminjaman }}</p>
-                                <p class="small text-muted mb-0">Buku Dipinjam</p>
-                            </div>
-                            <div class="px-3">
-                                <p class="mb-1 h5">{{ $totalPengembalian }}</p>
-                                <p class="small text-muted mb-0">Buku Dikembalikan</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body p-4 text-black">
-                        <div class="mb-5">
-                            <p class="lead fw-normal mb-1">Tentang</p>
-                            <div class="p-4" style="background-color: #f8f9fa;">
-                                <p class="font-italic mb-1">Nama Lengkap : {{ $user->name_lengkap }}</p>
-                                <p class="font-italic mb-1">Alamat : {{ $user->alamat }}</p>
-                                <p class="font-italic mb-1">Email : {{ $user->email }}</p>
-                            </div>
+                    <div class="w-full">
+                        <h3 class="font-medium text-gray-900 text-left px-6">Recent activites</h3>
+                        <div class="mt-5 w-full flex flex-col items-center overflow-hidden text-sm">
+                            @forelse ($data as $item)
+                                <a href="#"
+                                    class="border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150">
+                                    <img src="{{ asset('asset/images/logo.svg') }}" alt=""
+                                        class="rounded-full h-6 shadow-md inline-block mr-2">
+                                        @if ($item->status_peminjaman == 'Dipinjam')
+                                            {{ Auth::user()->name_lengkap }} Melakukan Peminjaman Buku {{ $item->buku->judul }}
+                                        @elseif($item->status_peminjaman == 'Dikembalikan')
+                                            {{ Auth::user()->name_lengkap }} Melakukan Pengembalian Buku {{ $item->buku->judul }} 
+                                        @endif
+                                        <span class="text-gray-500 text-xs">{{ Carbon::parse($item->created_at)->diffForHumans() }}</span>
+                                </a>
+                            @empty
+                                <a href="#"
+                                    class="border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150">
+                                    <img src="{{ asset('asset/images/logo.svg') }}" alt=""
+                                        class="rounded-full h-6 shadow-md inline-block mr-2">
+                                    No Activities
+                                </a>
+                            @endforelse
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
-    <!-- Modal Edit Profile -->
-    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Form untuk mengedit data profil dan mengunggah foto profil -->
-                    <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" name="username" value="{{ $user->username }}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="name_lengkap" class="form-label">Nama Lengkap</label>
-                            <input type="text" class="form-control" id="name_lengkap" name="name_lengkap" value="{{ $user->name_lengkap }}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="alamat" class="form-label">Alamat</label>
-                            <input type="text" class="form-control" id="alamat" name="alamat" value="{{ $user->alamat }}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="profile_photo" class="form-label">Foto Profil</label>
-                            <input type="file" class="form-control" id="profile_photo" name="profile_photo">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+</body>
 
-
-@endsection
+</html>
