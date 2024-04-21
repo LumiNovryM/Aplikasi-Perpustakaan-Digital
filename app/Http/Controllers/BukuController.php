@@ -160,4 +160,11 @@ class BukuController extends Controller
         $data = Buku::where('id', $id)->get()->first();
         return view('peminjam.detail-buku', ['data' => $data]);
     }
+
+    public function list_buku()
+    {
+        $kategori = Kategori::all();
+        $data = Buku::all();
+        return view('peminjam.list-buku', ['buku' => $data, 'kategori' => $kategori]);
+    }
 }
