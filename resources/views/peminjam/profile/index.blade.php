@@ -39,8 +39,8 @@
                         </span>
                     </p>
                     <div class="my-5 px-6">
-                        <a href="#" @disabled(true)
-                            class="text-gray-200 block rounded-lg text-center font-medium leading-6 px-6 py-3 bg-gray-900 hover:bg-black hover:text-white">{{ Auth::user()->role == 'peminjam' ? 'Peminjam' : '' }}</a>
+                        <a href="{{ route('peminjam.dashboard') }}" @disabled(true)
+                            class="text-gray-200 block rounded-lg text-center font-medium leading-6 px-6 py-3 bg-gray-900 hover:bg-black hover:text-white">Kembali</a>
                     </div>
                     <div class="w-full">
                         <h3 class="font-medium text-gray-900 text-left px-6">Recent activites</h3>

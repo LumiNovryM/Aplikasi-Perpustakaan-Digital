@@ -15,7 +15,7 @@ class PeminjamanSeeder extends Seeder
     {
         $data = [
             [
-                'user_id' => 1, // Ganti dengan ID user yang sesuai
+                'user_id' => 3, // Ganti dengan ID user yang sesuai
                 'buku_id' => 1, // Ganti dengan ID buku yang sesuai
                 'tanggal_peminjaman' => '2024-04-17',
                 'tanggal_pengembalian' => '2024-04-24',
@@ -24,8 +24,8 @@ class PeminjamanSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'user_id' => 2, // Ganti dengan ID user yang sesuai
-                'buku_id' => 2, // Ganti dengan ID buku yang sesuai
+                'user_id' => 3, // Ganti dengan ID user yang sesuai
+                'buku_id' => 1, // Ganti dengan ID buku yang sesuai
                 'tanggal_peminjaman' => '2024-04-15',
                 'tanggal_pengembalian' => '2024-04-22',
                 'status_peminjaman' => 'Dikembalikan',
