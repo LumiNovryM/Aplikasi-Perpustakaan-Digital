@@ -18,20 +18,26 @@ class KoleksiController extends Controller
 {
     public function index()
     {
-        $koleksi = Koleksi::with(['user','buku'])->get();
+        $favorite = Favorite::with(['user','buku'])->get();
 
-        return view('peminjam.koleksi', ['data' => $koleksi]);
+        return view('peminjam.favorite', ['data' => $favorite]);
     }
 
     public function AddFavorite($id)
     {
         try{
             $user_id = Auth::user()->id;
-            $buku_id = $id;
-            Favorite::insert([
-                'user_id' => $user_id,
-                'buku_id' => $buku_id
-            ]);
+            $data = Favorite::where('user_id', $user_id)->where('buku_id', $id)->get()->first();
+            if($data){
+                return redirect()->route('favorite.index')->with('message', 'Buku Sudah Pernah Ditambahkan');
+            }else{
+
+                $buku_id = $id;
+                Favorite::insert([
+                    'user_id' => $user_id,
+                    'buku_id' => $buku_id
+                ]);
+            }
             return redirect()->route('favorite.index')->with('message', 'Favorite Baru Ditambahkan');
         } catch (\Exception $e){
             return redirect()->route('peminjam.dashboard')->with('message', 'Favorite Gagal Ditambahkan');
