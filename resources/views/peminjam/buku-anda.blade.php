@@ -263,68 +263,79 @@
                                         {{ $item->buku->penerbit }}</p>
                                     <p class="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">Stock :
                                         {{ $item->buku->stock }}</p>
-                                    <p class="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">
-                                        <span class="ms-auto text-warning fw-bold d-block text-center rate">
-                                            <span>Rate: <span class="text-yellow-400">
-                                                    ★{{ number_format($item->buku->ulasan->avg('rating'), 1) }}/5
-                                                </span>
-                                            </span>
-                                        </span>
-                                    </p>
-
+                                    <p class="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">Rate :<span
+                                            class="text-yellow-400">
+                                            ★{{ number_format($item->buku->ulasan->avg('rating'), 1) }}/5
+                                        </span></p>
                                 </div>
                             </div>
                             {{-- Form Rating & Ulasan --}}
                             <div
-                                class="items-center bg-gray-50 rounded-lg shadow sm:flex dark:bg-gray-800 dark:border-gray-700">
+                                class="items-center bg-gray-50 rounded-lg shadow sm:flex dark:bg-gray-800 dark:border-gray-700 p-5">
                                 <form action="{{ route('pengembalian.buku', ['id' => $item->peminjaman->id]) }}"
                                     method="POST">
                                     @csrf
                                     <input type="hidden" name="booking_id" value="{{ $item->peminjaman->id }}">
+                                    @if ($item->buku->ulasan->where('user_id', Auth::user()->id))
                                     <div class="form-group">
-                                        <div class="rate">
-                                            <input type="radio" id="star5_{{ $item->id }}" class="rate"
-                                                name="rating" value="5" />
-                                            <label for="star5_{{ $item->id }}" title="5 stars">5 stars</label>
-                                            <input type="radio" id="star4_{{ $item->id }}" class="rate"
-                                                name="rating" value="4" />
-                                            <label for="star4_{{ $item->id }}" title="4 stars">4 stars</label>
-                                            <input type="radio" id="star3_{{ $item->id }}" class="rate"
-                                                name="rating" value="3" />
-                                            <label for="star3_{{ $item->id }}" title="3 stars">3 stars</label>
-                                            <input type="radio" id="star2_{{ $item->id }}" class="rate"
-                                                name="rating" value="2">
-                                            <label for="star2_{{ $item->id }}" title="2 stars">2 stars</label>
-                                            <input type="radio" id="star1_{{ $item->id }}" class="rate"
-                                                name="rating" value="1" />
-                                            <label for="star1_{{ $item->id }}" title="1 star">1 star</label>
-                                        </div>
-                                        @error('rating')
-                                            <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
+                                        
                                     </div>
+                                    @else
+                                        <div class="form-group">
+                                            <div class="rate">
+                                                <input type="radio" id="star5_{{ $item->id }}" class="rate"
+                                                    name="rating" value="5" />
+                                                <label for="star5_{{ $item->id }}" title="5 stars">5 stars</label>
+                                                <input type="radio" id="star4_{{ $item->id }}" class="rate"
+                                                    name="rating" value="4" />
+                                                <label for="star4_{{ $item->id }}" title="4 stars">4
+                                                    stars</label>
+                                                <input type="radio" id="star3_{{ $item->id }}" class="rate"
+                                                    name="rating" value="3" />
+                                                <label for="star3_{{ $item->id }}" title="3 stars">3
+                                                    stars</label>
+                                                <input type="radio" id="star2_{{ $item->id }}" class="rate"
+                                                    name="rating" value="2">
+                                                <label for="star2_{{ $item->id }}" title="2 stars">2
+                                                    stars</label>
+                                                <input type="radio" id="star1_{{ $item->id }}" class="rate"
+                                                    name="rating" value="1" />
+                                                <label for="star1_{{ $item->id }}" title="1 star">1 star</label>
+                                            </div>
+                                            @error('rating')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    @endif
                                     <div class="form-group">
-                                        <textarea class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="comment" rows="6" placeholder="Comment" maxlength="200"></textarea>
+                                        <textarea disabled
+                                            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-purple-700 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            name="comment" rows="6" placeholder="Comment" maxlength="200">
+@foreach ($item->buku->ulasan->where('user_id', Auth::user()->id) as $ulasan)
+{{ $ulasan->ulasan }}
+@endforeach
+</textarea>
                                         @error('comment')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="mt-3 text-right">
-                                        <button type="submit" class="btn btn-success">Kembalikan & beri
-                                            rating</button>
-                                    </div>
-                                </form>
                             </div>
                         </div>
                         <!-- Modal footer -->
                         <div
                             class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                            @if ($item->buku->ulasan->where('user_id', Auth::user()->id))
+                                <button disabled data-modal-hide="default-modal" type="submit"
+                                class="text-white bg-purple-700 hover:bg-purpl-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center">Anda Sudah Memberikan Rating</button>
+                            @else
+                                <button data-modal-hide="default-modal" type="submit"
+                                class="text-white bg-purple-700 hover:bg-purpl-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center">Nilai dan Kembalikan</button>
+                            @endif
+                            
                             <button data-modal-hide="default-modal" type="button"
-                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I
-                                accept</button>
-                            <button data-modal-hide="default-modal" type="button"
-                                class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Decline</button>
+                                class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Batal</button>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>

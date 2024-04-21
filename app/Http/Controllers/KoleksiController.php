@@ -47,7 +47,6 @@ class KoleksiController extends Controller
     public function buku_anda()
     {
         $koleksi = Koleksi::with(['user','buku'])->get();
-
         return view('peminjam.buku-anda', ['data' => $koleksi]);
     }
 }
