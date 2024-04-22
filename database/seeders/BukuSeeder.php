@@ -26,7 +26,7 @@ class BukuSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'judul' => 'JavaScript',
+                'judul' => 'JavaScript ES6',
                 'sampul' => 'javascript.png',
                 'penulis' => 'Maria Chester',
                 'penerbit' => 'Maria Chester',
