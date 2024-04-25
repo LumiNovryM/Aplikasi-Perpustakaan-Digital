@@ -1,0 +1,23 @@
+DELIMITER //
+CREATE TRIGGER increase_buku_stock_after_pengembalian
+AFTER UPDATE ON peminjaman
+FOR EACH ROW
+BEGIN
+    IF NEW.status_peminjaman = 'Dikembalikan' AND NEW.status_tunggu = 'dikembalikan' AND OLD.status_peminjaman != 'Dikembalikan' AND OLD.status_tunggu != 'dikembalikan' THEN
+        UPDATE buku SET stock = stock + 1 WHERE id = NEW.buku_id;
+    END IF;
+END;
+//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER reduce_buku_stock_on_peminjaman
+AFTER UPDATE ON peminjaman
+FOR EACH ROW
+BEGIN
+    IF NEW.status_peminjaman = 'Dipinjam' AND NEW.status_tunggu = 'idle' THEN
+        UPDATE buku SET stock = stock - 1 WHERE id = NEW.buku_id;
+    END IF;
+END;
+//
+DELIMITER ;
